@@ -10,28 +10,28 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 /*
- * DES�����㷨����һ�ֶԳƼ����㷨���� ���ܺͽ��� ʹ����ͬ ��Կ ���㷨��
+ * DES加密算法：是一种对称加密算法，即 加密和解密 使用相同 秘钥 的算法。
  */
 @SuppressWarnings("restriction")
 public class DESUtil {
 
 	private static Key key;
-	// ������Կkey
+	// 设置密钥key
 	private static String KEY_STR = "myKey";
 	private static String CHARSETNAME = "UTF-8";
 	private static String ALGORITHM = "DES";    //���ü����㷨
 
 	static {
 		try {
-			// ����DES�㷨����
+			// 生成DES算法对象
 			KeyGenerator generator = KeyGenerator.getInstance(ALGORITHM);
-			// ����SHA1��ȫ����
+			// 运用SHA1安全策略
 			SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
-			// ��������Կ����
+			// 设置上密钥种子
 			secureRandom.setSeed(KEY_STR.getBytes());
-			// ��ʼ������SHA1���㷨����
+			// 初始化基于SHA1的算法对象
 			generator.init(secureRandom);
-			// ������Կ����
+			// 生成密钥对象
 			key = generator.generateKey();
 			generator = null;
 		} catch (Exception e) {
@@ -40,24 +40,24 @@ public class DESUtil {
 	}
 
 	/**
-	 * ��ȡ���ܺ����Ϣ
+	 * 获取加密后的信息
 	 * 
 	 * @param str
 	 * @return
 	 */
 	public static String getEncryptString(String str) {
-		// ����BASE64���룬����byte[]��ת����String
+		// 基于BASE64编码，接收byte[]并转换成String
 		BASE64Encoder base64encoder = new BASE64Encoder();
 		try {
-			// ��UTF8����
+			// 按UTF8编码
 			byte[] bytes = str.getBytes(CHARSETNAME);
-			// ��ȡ���ܶ���
+			// 获取加密对象
 			Cipher cipher = Cipher.getInstance(ALGORITHM);
-			// ��ʼ��������Ϣ
-			cipher.init(Cipher.ENCRYPT_MODE, key); // ���ݼ������� �� key ��ʼ��
-			// ����
+			// 初始化密码信息
+			cipher.init(Cipher.ENCRYPT_MODE, key); // 根据加密类型 和 key 初始化
+			// 加密
 			byte[] doFinal = cipher.doFinal(bytes);
-			// byte[]to encode�õ�String������
+			// byte[]to encode好的String并返回
 			return base64encoder.encode(doFinal);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -65,24 +65,24 @@ public class DESUtil {
 	}
 
 	/**
-	 * ��ȡ����֮�����Ϣ
+	 * 获取解密之后的信息
 	 * 
 	 * @param str
 	 * @return
 	 */
 	public static String getDecryptString(String str) {
-		// ����BASE64���룬����byte[]��ת����String
+		// 基于BASE64编码，接收byte[]并转换成String
 		BASE64Decoder base64decoder = new BASE64Decoder();
 		try {
-			// ���ַ���decode��byte[]
+			// 将字符串decode成byte[]
 			byte[] bytes = base64decoder.decodeBuffer(str);
-			// ��ȡ���ܶ���
+			// 获取解密对象
 			Cipher cipher = Cipher.getInstance(ALGORITHM);
-			// ��ʼ��������Ϣ
+			// 初始化解密信息
 			cipher.init(Cipher.DECRYPT_MODE, key);
-			// ����
+			// 解密
 			byte[] doFinal = cipher.doFinal(bytes);
-			// ���ؽ���֮�����Ϣ
+			// 返回解密之后的信息
 			return new String(doFinal, CHARSETNAME);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
