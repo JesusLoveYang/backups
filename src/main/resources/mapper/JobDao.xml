@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bu.dao.JobDao">
+    <insert id="insertJob">
+        INSERT INTO
+        tb_job(job_name,job_group,cron_expression,trigger_name,trigger_group, user_id)
+        values (#{jobName},#{jobGroup},#{cronExpression},#{triggerName},#{triggerGroup},#{userId})
+    </insert>
+
+    <select id="queryJobList" resultType="com.bu.entity.MyJob">
+        SELECT
+        job.job_name,
+        job.job_group,
+        job.cron_expression,
+        job.trigger_name,
+        job.trigger_group
+        FROM
+        tb_user u,
+        tb_job job
+        WHERE
+        u.user_id=job.user_id
+        AND user_name = #{username}
+        LIMIT #{initIndex}, #{pageSize}
+    </select>
+
+    <select id="queryJob" resultType="com.bu.entity.MyJob">
+        SELECT
+        job_name,
+        job_group,
+        cron_expression,
+        trigger_name,
+        trigger_group
+        FROM
+        tb_job
+        WHERE job_name=#{jobName}
+    </select>
+</mapper>

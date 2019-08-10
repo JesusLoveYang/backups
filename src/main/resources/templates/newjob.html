@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加任务</title>
+    <link rel="stylesheet" href="/backups/static/css/newjob.css" />
+</head>
+<body class="login-bg">
+
+<div class="login">
+    <div class="content">
+        <div class="message">添加任务</div>
+        <div id="darkbannerwrap"></div>
+        <div class="item-input">
+            <input name="jobname" placeholder="任务名"  type="text" lay-verify="required" class="layui-input jobname" >
+            <hr class="hr15">
+        </div>
+        <div class="item-input">
+            <input name="jobgroup" lay-verify="required" placeholder="任务组名"  type="text" class="layui-input jobgroup">
+            <hr class="hr15">
+        </div>
+        <div class="item-input">
+            <input name="triggername" placeholder="触发器名"  type="text" lay-verify="required" class="layui-input triggername" >
+            <hr class="hr15">
+        </div>
+        <div class="item-input">
+            <input name="triggergroup" placeholder="触发器组名(要求与任务组名一致)"  type="text" lay-verify="required" class="layui-input triggergroup" >
+            <hr class="hr15">
+        </div>
+        <div class="item-input">
+            <input name="cron" placeholder="cron表达式"  type="text" lay-verify="required" class="layui-input cron" >
+            <hr class="hr15">
+        </div>
+        <div class="content-block">
+            <div class="row" style="display: flex;justify-content: space-between">
+                <div class="right" value="确认" lay-submit lay-filter="right" style="margin:0;flex-basis:48%;height:45px;color:white;background:#189f92;line-height:40px;text-align:center;display:inline-block;" type="submit">确认</div>
+                <div class="back" style="margin:0;flex-basis:48%;height:45px;color:white;background:#189f92;line-height:40px;text-align:center;display:inline-block;">
+                    <a href="http://localhost:8080/backups/success" style="color:#FFFFFF;text-decoration:none;">返回</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.12.0/jquery.js"></script>
+<script type="text/javascript" src='/backups/static/js/buildjob.js' charset='utf-8' ></script>
+<!-- 底部结束 -->
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.bu.dao.UserDao">
+ 	<select id="getUserByUsername" parameterType="String" resultType="com.bu.entity.User">
+ 		SELECT 
+ 		user_id,
+ 		user_name,
+ 		user_password,
+ 		roles_id
+ 		FROM
+ 		tb_user
+ 		WHERE user_name = #{username}
+ 	</select>
+ 	
+ 	<select id="getRolesByusername" parameterType="String" resultType="String">
+ 		SELECT
+ 		r.roles_name
+ 		FROM
+ 		tb_user AS u,
+ 		tb_roles AS r
+ 		WHERE 
+ 		u.roles_id = r.roles_id AND user_name=#{username}
+ 	</select>
+ </mapper>
+  
